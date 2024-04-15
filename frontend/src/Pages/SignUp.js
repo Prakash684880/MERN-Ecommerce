@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
 
-    const [showPassword, setShowPassword] = useState("false");
+    const [showPassword, setShowPassword] = useState("");
     const [showConfirmPassword, setShowConfirmPassword] = useState("false");
     const [data, setData] = useState({
         email: "",
