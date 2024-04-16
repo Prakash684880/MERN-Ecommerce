@@ -1,6 +1,6 @@
-const role = {
+const Role = {
     ADMIN: "ADMIN",
     GENERAL: "GENERAL"
 }
 
-export default role
+export default Role

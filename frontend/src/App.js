@@ -24,14 +24,14 @@ function App() {
       });
 
       const dataApi = await dataResponse.json();
-      console.log("userdata", dataApi)
+
 
 
       if (dataApi.success) {
         dispatch(setUserDetails(dataApi.data));
-        console.log("apidata", dataApi.data)
+
       }
-      console.log("data-api", dataApi);
+
     } catch (error) {
       console.error('Error fetching user details:', error);
     }
@@ -45,10 +45,10 @@ function App() {
 
 
     <Context.Provider value={{ fetchUserDetails }}>
-      <ToastContainer />
+      <ToastContainer position='top-center' />
       <Header />
       <main
-      // className='min-h-[calc(100vh-120px)] pt-16'
+        className='min-h-[calc(100vh-120px)]'
       >
         <Outlet />
       </main>
