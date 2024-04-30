@@ -1,26 +1,28 @@
 import React, { useState } from 'react'
+import uploadImage from '../helpers/uploadImage'
+import SummaryApi from '../common'
+import { toast } from 'react-toastify'
 import { CgClose } from 'react-icons/cg'
 import productCategory from '../helpers/productCategory'
-import { FaCloudUploadAlt } from "react-icons/fa";
-import uploadImage from '../helpers/uploadImage';
+import { FaCloudUploadAlt } from 'react-icons/fa'
+import { MdDelete } from 'react-icons/md'
 import DisplayImage from './DisplayImage'
-import { MdDelete } from "react-icons/md";
-import SummaryApi from '../common';
-import { toast } from 'react-toastify'
 
-const UploadProduct = ({
+const AdminEditProduct = ({
     onClose,
-    fetchData
+    productdata,
+    fetchdata,
 }) => {
 
     const [data, setData] = useState({
-        productName: "",
-        brandName: "",
-        category: "",
-        productImage: [],
-        description: "",
-        price: '',
-        sellingPrice: "",
+        ...productdata,
+        productName: productdata?.productName,
+        brandName: productdata?.brandName,
+        category: productdata?.category,
+        productImage: productdata?.productImage || [],
+        description: productdata?.description,
+        price: productdata?.price,
+        sellingPrice: productdata?.sellingPrice,
     })
 
     const [openFullScreenImage, setOpenFullScreenImage] = useState(false)
@@ -71,8 +73,8 @@ const UploadProduct = ({
     const handleProductSubmit = async (e) => {
         e.preventDefault()
 
-        const response = await fetch(SummaryApi.UploadProduct.url, {
-            method: SummaryApi.UploadProduct.method,
+        const response = await fetch(SummaryApi.UpdateProduct.url, {
+            method: SummaryApi.UpdateProduct.method,
             credentials: 'include',
             headers: {
                 "content-type": "application/json",
@@ -81,12 +83,11 @@ const UploadProduct = ({
         })
 
         const responseData = await response.json()
-
-
+        console.log("response data", responseData)
         if (responseData.success) {
             toast.success(responseData?.message)
             onClose()
-            fetchData()
+            fetchdata()
         }
         if (responseData.error) {
             toast.error(responseData?.message)
@@ -101,7 +102,7 @@ const UploadProduct = ({
             overflow-hidden
             '>
                 <div className='flex justify-between items-center pb-3'>
-                    <h2 className='font-bold text-lg'>Upload Product</h2>
+                    <h2 className='font-bold text-lg'>Edit Product</h2>
                     <div className='w-fit ml-auto text-2xl hover:text-red-400 cursor-pointer ' onClick={onClose}>
                         <CgClose />
                     </div>
@@ -229,7 +230,7 @@ const UploadProduct = ({
 
 
 
-                    <button className='px-3 py-3 bg-red-500 text-white rounded mb-12 hover:bg-red-900'>Upload Product</button>
+                    <button className='px-3 py-3 bg-red-500 text-white rounded mb-12 hover:bg-red-900'>Update Product</button>
 
                 </form>
             </div>
@@ -247,4 +248,4 @@ const UploadProduct = ({
     )
 }
 
-export default UploadProduct
+export default AdminEditProduct

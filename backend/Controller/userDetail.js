@@ -13,7 +13,7 @@ async function userDetailController(req, res) {
             message: "User details"
         })
 
-        console.log("user", user)
+        
 
     }
     catch (err) {
